@@ -24,6 +24,7 @@
 				<?php
 					if ( isset($_SESSION['user']) ){
 						echo '<li><a href="formularios/logout.php">Desloguearse</a></li>';
+						echo '<li><img src="'.$_SESSION['user']->photo .'" alt="Responsive image" class="img-responsive img-circle"></li>';
 					}
 					else{
 						echo '<li><a href="index.php">Logueate</a></li>';
