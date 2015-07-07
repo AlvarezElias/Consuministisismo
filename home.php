@@ -29,13 +29,18 @@ $user = $_SESSION['user'];
 				<h1>Casita dulce casita</h1>
 			</div>
 
-			<div id='stream' class='row container'>
-				<?php 
-					//Meter codigo para generar el Mainstream
-					//Generar lista de rss como main menu
-					
-				?>
-			</div>
+			<section id='stream' class='row container'> 
+			<!--Meter codigo para generar el Mainstream
+				Generar lista de rss como main menu-->	
+	  		<?php foreach ($items as $item): ?>
+			   <article>
+				    <h2 class="Item-title"><a href="<?php echo $item->link; ?>" target="_blank"><?php echo $item->title; ?></a></h2>
+				    <div class="Item-date"><?php echo $item->pubDate; ?></div>
+				    <div class="Item-content"><?php echo $item->description; ?></div>
+			   </article>
+			<?php endforeach; ?>
+
+			</section>
 		</main>
 
 		<div id="footer" class="footer row">
