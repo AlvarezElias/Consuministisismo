@@ -1,5 +1,7 @@
 <?php 
 include ('clases/User.php');
+include ('clases/Rss.php');
+
 session_start();
 
 if(!isset($_SESSION['user']))
@@ -10,6 +12,8 @@ if(!isset($_SESSION['user']))
 
 $user = $_SESSION['user'];
 
+$items = Rss::cargarRss();
+$i = 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,16 +33,29 @@ $user = $_SESSION['user'];
 				<h1>Casita dulce casita</h1>
 			</div>
 
-			<section id='stream' class='row container'> 
+			<section id='stream' class='row container center-block'> 
 			<!--Meter codigo para generar el Mainstream
 				Generar lista de rss como main menu-->	
-	  		<?php foreach ($items as $item): ?>
-			   <article>
-				    <h2 class="Item-title"><a href="<?php echo $item->link; ?>" target="_blank"><?php echo $item->title; ?></a></h2>
-				    <div class="Item-date"><?php echo $item->pubDate; ?></div>
-				    <div class="Item-content"><?php echo $item->description; ?></div>
-			   </article>
-			<?php endforeach; ?>
+<?php
+			for ($i=0; $i <10 ; $i++) 
+			{ 
+				strip_tags($items[$i]->description, '<br><br/>');
+				strip_tags($items[$i]->pubDate, '<a></a>');
+				echo 
+				"<article class=' notice text-center'>
+					<h4 class='Item-title'>
+					   	<a href='". $items[$i]->link."' target='_blank'>". $items[$i]->title ." </a>
+					</h4>
+				
+					<div class='Item-date'>". (string) $items[$i]->pubDate ."</div>
+				
+					<div class='Item-content'>". substr($items[$i]->description,0,180) . 
+					  	"<a href='". $items[$i]->link ."'>Dame mas</a>
+					</div>
+				</article>";
+			}
+?>
+	  		
 
 			</section>
 		</main>
