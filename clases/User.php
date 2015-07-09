@@ -8,9 +8,10 @@ class User
 	public $photo;
 	public $datebirth;
 	public $intro;
+	public $sexo;
 
 
-	public function __construct($id=null,$name=null,$email=null, $photo = null, $datebirth = null, $intro = null)
+	public function __construct($id=null, $name=null, $email=null, $photo = null, $datebirth = null, $intro = null, $sexo = null)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -18,6 +19,7 @@ class User
 		$this->photo = $photo;
 		$this->datebirth = $datebirth;
 		$this->intro = $intro; 
+		$this->sexo = $sexo;
 	} 
 
 	public function borrarUsuario()
@@ -32,13 +34,45 @@ class User
 		return $consulta->rowCount();
 	}
 
-	public function modificarUsuario()
+	public function modificarUsuario($userUpdate)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
-		$consulta = $objectAccessData->RetornarConsulta(
-			"DELETE 
-			FROM users 
-			WHERE id = $this->id");
+
+		$querystring = 'UPDATE u SET u.name =' . $this->name ;
+
+		/********************************
+		 **	   PARAMETRIZAR TODO!!     **
+		**********************************/
+		if($userUpdate['email'] != $this->email )
+		{
+			$querystring = $querystring .	'u.email  = ' . $userUpdate['email'];
+			$consulta->bindValue(':username', $username, PDO::PARAM_STR);
+		}
+
+		if($userUpdate['photo'] != $this->photo){
+			$querystring = $querystring .	'i.photo  = ' . $userUpdate['photo'];
+		}
+
+		if($userUpdate['datebirth'] != $this->datebirth){
+			$querystring = $querystring .	'i.datebirth  = ' . $userUpdate['datebirth']; 
+		}
+
+		if ( $userUpdate['intro'] != $this->intro) 
+		{
+			$querystring = $querystring .	'i.intro  = ' . $userUpdate['intro']; 	
+		}
+
+		/********************************
+		 **	   PARAMETRIZAR TODO!!     **
+		**********************************/
+		
+		$querystring = $querystring .  'FROM users as u
+										JOIN infouser as i on i.id = u.infouserid  ';
+
+		$querystring = $querystring . "WHERE id = ".  $this->id;
+
+		$consulta = $objectAccessData->RetornarConsulta($querystring);
+
 		$consulta->execute();
 		return $consulta->rowCount();
 	}
