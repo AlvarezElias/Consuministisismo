@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+	include_once('clases/User.php');
+	session_start();
+?>
 <html>
 	<head>
 	<?php include('modules/headContent.html'); ?>
@@ -29,9 +32,7 @@
 			</div>
 		</main>
 
-		<div id="footer" class="footer">
-			<p>Producto By Me</p>
-		</div>
+		<?php include ('modules/footer.html'); ?>
 
 		<?php include('modules/script.html'); ?>
 	</body>

@@ -8,13 +8,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Lector Rss</a>
+			<a class="navbar-brand" href="index.php">Lector Rss</a>
 		</div>
 				
 		<!--nav-collapse -->
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#Home">Home</a></li>
+				<li class="active"><a href="home.php">Home</a></li>
 				<li><a href="#about">About</a></li>
 				<li><a href="#contact">Contact</a></li>
 			</ul>
@@ -23,8 +23,9 @@
 				<li><a href="">Perfil</a></li>
 				<?php
 					if ( isset($_SESSION['user']) ){
+						echo '<li><a href="./UserConfig.php">Configurate</a></li>';
 						echo '<li><a href="formularios/logout.php">Desloguearse</a></li>';
-						echo '<li><img src="'.$_SESSION['user']->photo .'" alt="Responsive image" class="img-responsive img-circle"></li>';
+						echo '<li><img src="'. $_SESSION['user']->photo .'" alt="Responsive image" class="img-responsive img-circle"></li>';
 					}
 					else{
 						echo '<li><a href="index.php">Logueate</a></li>';

@@ -34,8 +34,10 @@ $i = 0;
 			</div>
 
 			<section id='stream' class='row container center-block'> 
+			
 			<!--Meter codigo para generar el Mainstream
-				Generar lista de rss como main menu-->	
+				Generar lista de rss como main menu
+				MUDAR-->	
 <?php
 			for ($i=0; $i <10 ; $i++) 
 			{ 
@@ -60,11 +62,10 @@ $i = 0;
 			</section>
 		</main>
 
-		<div id="footer" class="footer row">
-			<p>Producto By Me</p>
-		</div>
+		
+		
 	</div>
-
+	<?php include ('modules/footer.html'); ?>
 	<?php include ('modules/script.html'); ?>
 </body>
 </html>
