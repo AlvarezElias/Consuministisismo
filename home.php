@@ -1,19 +1,19 @@
 <?php 
-include ('clases/User.php');
-include ('clases/Rss.php');
+	include ('clases/User.php');
+	include ('clases/Rss.php');
 
-session_start();
+	session_start();
 
-if(!isset($_SESSION['user']))
-{
-	header ("location: index.php");
-	exit;
-}
+	if(!isset($_SESSION['user']))
+	{
+		header ("location: index.php");
+		exit;
+	}
 
-$user = $_SESSION['user'];
+	$user = $_SESSION['user'];
 
-$items = Rss::cargarRss();
-$i = 0;
+	$items = Rss::cargarRss();
+	$i = 0;
 ?>
 <!DOCTYPE html>
 <html>

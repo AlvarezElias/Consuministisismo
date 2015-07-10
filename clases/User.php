@@ -34,54 +34,96 @@ class User
 		return $consulta->rowCount();
 	}
 
+	private function informacionDeUsuarioExistente($objectAccessData)
+	{
+		$infouser = $objectAccessData->RetornarConsulta("SELECT i.id FROM infouser as i, users as u WHERE u.id = " . $this->id);
+		$infouser->execute();
+		return $infouser->fetch(PDO::FETCH_ASSOC);
+	}
+
+	private function insertarInformacionDeUsuario($objectAccessData)
+	{
+		$infouser = $objectAccessData->RetornarConsulta("INSERT INTO infouser (userid)  
+														 VALUES (". $this->id .")");
+
+		$infouser->execute();
+		return $objectAccessData->RetornarUltimoIdInsertado();
+	}
+
 	public function modificarUsuario($userUpdate)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 
-		$querystring = 'UPDATE u SET u.name =' . $this->name ;
-
-		/********************************
-		 **	   PARAMETRIZAR TODO!!     **
-		**********************************/
-		if($userUpdate['email'] != $this->email )
-		{
-			$querystring = $querystring .	'u.email  = ' . $userUpdate['email'];
-			$consulta->bindValue(':username', $username, PDO::PARAM_STR);
-		}
-
-		if($userUpdate['photo'] != $this->photo){
-			$querystring = $querystring .	'i.photo  = ' . $userUpdate['photo'];
-		}
-
-		if($userUpdate['datebirth'] != $this->datebirth){
-			$querystring = $querystring .	'i.datebirth  = ' . $userUpdate['datebirth']; 
-		}
-
-		if ( $userUpdate['intro'] != $this->intro) 
-		{
-			$querystring = $querystring .	'i.intro  = ' . $userUpdate['intro']; 	
-		}
-
-		/********************************
-		 **	   PARAMETRIZAR TODO!!     **
-		**********************************/
 		
-		$querystring = $querystring .  'FROM users as u
-										JOIN infouser as i on i.id = u.infouserid  ';
+		
+		//Array para bindear query con variables
+		
+		$querystring = 'UPDATE users SET users.name = ? , users.email  = ? WHERE id = ?';
 
-		$querystring = $querystring . "WHERE id = ".  $this->id;
+		$bindeoUser = array('name' => $this->name,
+							'email' => $this->email,
+							'id' => $this->id );
+
+		$consultaUser = $objectAccessData->RetornarConsulta($querystring);
+
+		$consultaUser->execute($bindeoUser);
+
+
+		/*
+			Creacion de registro en infoUser en caso que no exista.
+		*/
+		$infouser =  $this->informacionDeUsuarioExistente($objectAccessData);
+
+		$querystring = 'UPDATE infouser SET userid = ? ';
+
+		if(!isset($infouser) or $infouser == 0)
+		{
+			$infouser = $this->insertarInformacionDeUsuario($objectAccessData);
+		}
+
+
+		$bindeoInfoUser[] = $infouser['id'];
+
+		/********************************
+		 **	   PARAMETRIZAR TODO!!     **
+		**********************************/
+		if(isset($userUpdate->photo) and $userUpdate->photo != $this->photo){
+			$querystring = $querystring .	', i.photo  = ? ';
+			$bindeoInfoUser[] = $userUpdate->photo;
+		}
+
+		if(isset($userUpdate->datebirth) and $userUpdate->datebirth != $this->datebirth){
+			$querystring = $querystring .	', i.datebirth  = ? '; 
+			$bindeoInfoUser[] = $userUpdate->datebirth;
+		}
+
+		if (isset($userUpdate->intro) and  $userUpdate->intro != $this->intro) 
+		{
+			$querystring = $querystring .	', i.intro  = ? '; 	
+			$bindeoInfoUser[] = $userUpdate->intro;
+		}
+
+		/********************************
+		 **	   PARAMETRIZAR TODO!!     **
+		**********************************/
+
+		$querystring = $querystring . "WHERE id = ?";
+		$bindeoInfoUser[] = $this->id;
 
 		$consulta = $objectAccessData->RetornarConsulta($querystring);
 
-		$consulta->execute();
-		return $consulta->rowCount();
+		$consulta->execute($bindeoInfoUser);
+
+		return User::dameUsuarioActual($this->id);
 	}
 
 
 	
 
 
-	//Metodos estaticos
+	/************************
+	****Metodos estaticos****
+	*************************/
 	public static function DameUsuarioActual($id)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
