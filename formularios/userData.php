@@ -1,36 +1,36 @@
 <?php
-$currentUser = new User();
-$update = new User();
-$sexo="";
-if(isset($_SESSION['user']))
-{
+    $currentUser = new User();
+    $update = new User();
+    $sexo="";
     $currentUser = User::DameUsuarioActual($_SESSION['user']->id);
-    $sexo = isset($currentUser->sexo) ? $currentUser->sexo : "nada";
+
 
     if(isset($_POST['guardar']))
     {
+        $sexo = isset($currentUser->sexo) ? $currentUser->sexo : "indefinido";
+        $currentUser->intro = $_POST['intro'];
+        $currentUser->photo = $_POST['photo'];
+        $currentUser->sexo = $sexo;
+       // $currentUser->datebirth = $_POST['datebirth'];
+
         $update = $currentUser->modificarUsuario($currentUser);
 
-        if($update != $_SESSION['user'])
+        if($update != $currentUser)
         {
-            //$_SESSION['user'] = $currentUser;
+            $currentUser = $update;
+            $_SESSION['user'] = $currentUser;
         }
 
     }
-}
-else
-{
-    header('location: index.php');
-}
 
-var_dump($update);
+    var_dump($update);
 ?>
 
 <form method="post" action="UserConfig.php" class="form">
     <label>UserCode: <?php echo $currentUser->id ?></label>
 
     <div class="form-group">
-        <label for="intro">Correo Electronico</label>
+        <label for="intro">Intro</label>
         <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="Correo Electronico" required>
     </div>
 

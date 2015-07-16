@@ -1,6 +1,6 @@
 <?php
 include('AccesoDatos.php');
-class User 
+class User
 {
 	public $id;
 	public $name;
@@ -18,15 +18,15 @@ class User
 		$this->email = $email;
 		$this->photo = $photo;
 		$this->datebirth = $datebirth;
-		$this->intro = $intro; 
+		$this->intro = $intro;
 		$this->sexo = $sexo;
-	} 
+	}
 
 	public function borrarUsuario()
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 		$consulta = $objectAccessData->RetornarConsulta(
-			"DELETE 
+			"DELETE
 			FROM users
 			WHERE id=:id;");
 		$consulta->bindValue(':id',$this->id,PDO::PARAM_INT);
@@ -57,31 +57,29 @@ class User
 		
 		
 		//Array para bindear query con variables
-		
-		$querystring = 'UPDATE users SET users.name = ? , users.email  = ? WHERE id = ?';
+		if($this->name != $userUpdate->name || $this->email != $userUpdate->email){
+			$querystring = 'UPDATE users SET users.name = ? , users.email  = ? WHERE id = ?';
 
-		$bindeoUser = array('name' => $this->name,
-							'email' => $this->email,
-							'id' => $this->id );
+			$bindeoUser = array('name' => $this->name,
+								'email' => $this->email,
+								'id' => $this->id );
 
-		$consultaUser = $objectAccessData->RetornarConsulta($querystring);
+			$consultaUser = $objectAccessData->RetornarConsulta($querystring);
 
-		$consultaUser->execute($bindeoUser);
-
+			$consultaUser->execute($bindeoUser);
+		}
 
 		/*
 			Creacion de registro en infoUser en caso que no exista.
 		*/
 		$infouser =  $this->informacionDeUsuarioExistente($objectAccessData);
 
-		$querystring = 'UPDATE infouser SET userid = ? ';
-
 		if(!isset($infouser) or $infouser == 0)
 		{
 			$infouser = $this->insertarInformacionDeUsuario($objectAccessData);
 		}
 
-
+		$querystring = 'UPDATE infouser SET userid = ? ';
 		$bindeoInfoUser[] = $infouser['id'];
 
 		/********************************
@@ -113,8 +111,8 @@ class User
 		$consulta = $objectAccessData->RetornarConsulta($querystring);
 
 		$consulta->execute($bindeoInfoUser);
-
-		return User::dameUsuarioActual($this->id);
+		$user = User::dameUsuarioActual($this->id);
+		return $user;
 	}
 
 
@@ -127,10 +125,11 @@ class User
 	public static function DameUsuarioActual($id)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
-		$consulta = $objectAccessData->RetornarConsulta("SELECT u.id, u.name, u.email, d.photo, d.datebirth, d.intro 
-														FROM Users as u
-														LEFT JOIN infouser as d on u.infouserid = d.id
-														WHERE u.id = ?");
+		$consulta = $objectAccessData->RetornarConsulta(
+			"SELECT u.id, u.name, u.email, d.photo, d.datebirth, d.intro
+			FROM Users as u
+			LEFT JOIN infouser as d on u.id = d.userid
+			WHERE u.id = ?");
 		$consulta->execute(array($id));
 		$userArray = $consulta->fetch(PDO::FETCH_ASSOC);
 		return new User($userArray['id'],$userArray['name'],$userArray['email'],$userArray['photo'],$userArray['datebirth'],$userArray['intro']);
@@ -139,9 +138,7 @@ class User
 	public static function CrearUsuario($username, $password, $email)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
-		$consulta = $objectAccessData->RetornarConsulta(
-			"INSERT INTO users (name,password,email) 
-				VALUES (:username,:password,:email)");
+		$consulta = $objectAccessData->RetornarConsulta("INSERT INTO users (name,password,email) VALUES (:username,:password,:email)");
 		$consulta->bindValue(':username', $username, PDO::PARAM_STR);
 		$consulta->bindValue(':password',$password,PDO::PARAM_STR);
 		$consulta->bindValue(':email', $email, PDO::PARAM_STR);
@@ -162,10 +159,7 @@ class User
 	public static function NombreUsuarioExistente($username)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
-		$consulta = $objectAccessData->RetornarConsulta("SELECT name 
-														FROM users
-														where (name LIKE ? OR email LIKE ?) ");
-		//$consulta->bindValue(':username', $username, PDO::PARAM_STR);
+		$consulta = $objectAccessData->RetornarConsulta("SELECT name FROM users	where (name LIKE ? OR email LIKE ?) ");
 		$consulta->execute(array($username,$username));
 		return $consulta->rowCount();
 	}
@@ -174,22 +168,19 @@ class User
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 		$consulta = $objectAccessData->RetornarConsulta(
-			"SELECT count(email) 
-			FROM users
-			WHERE email = :email ");
+			"SELECT count(email) FROM users	WHERE email = :email ");
+
 		$consulta->bindValue(':email', $email,PDO::PARAM_STR);
 		$consulta->execute();
 		return $consulta->fetchColumn(0);
 	}
 
-
 	public static function ValidarIngreso($username, $password)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 		$consulta = $objectAccessData->RetornarConsulta(
-			"SELECT * 
-			FROM users
-			where (name LIKE ? OR email LIKE ?) AND password = ?");
+			"SELECT * FROM users where (name LIKE ? OR email LIKE ?) AND password = ?");
+
 		$consulta->execute(Array($username,$username,$password));
 
 		$userLogueado = $consulta->fetch(PDO::FETCH_ASSOC);
