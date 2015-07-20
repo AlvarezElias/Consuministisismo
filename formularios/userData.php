@@ -2,8 +2,8 @@
     $currentUser = new User();
     $update = new User();
     $sexo="";
+    $photoPath = 'images\\' . $_SESSION['user']->name . '\\';
     $currentUser = User::DameUsuarioActual($_SESSION['user']->id);
-
 
     if(isset($_POST['guardar']))
     {
@@ -12,18 +12,42 @@
         $update->email = $_POST['email'];
 
         $update->intro = $_POST['intro'];
-        $update->photo = isset($_POST['photo']) ? $_POST['photo'] : 'default.jpg';
+
+        if(!empty($_FILES['photo']['name']))
+        {
+            $update->photo = isset($_FILES['photo']['name']) ? $_FILES['photo']['name'] : 'default.jpg';
+            
+            $filePath = $photoPath . $update->photo;
+            
+            if(is_dir($photoPath))
+            {
+                if(!file_exists ($filePath))
+                {
+                    move_uploaded_file($_FILES['photo']['tmp_name'], $filePath);
+                    chmod($filePath,0644);
+                }
+            }
+            else
+            {
+                mkdir($photoPath,0777);
+                move_uploaded_file($_FILES['photo']['tmp_name'], $filePath);
+                chmod($filePath,0644);
+            }
+
+        }
+
         $update->gender = isset($_POST['gender']) ? $_POST['gender'] : "I DONT KNOW!";
        // $currentUser->datebirth = $_POST['datebirth'];
 
         $update = $currentUser->modificarUsuario($update);
         
         $currentUser = $update;
+
         $_SESSION['user'] = $currentUser;
     }
 ?>
 
-<form method="post" action="UserConfig.php" class="form">
+<form method="post" action="UserConfig.php" class="form" enctype="multipart/form-data">
     <label>UserCode: <?php echo $currentUser->id ?></label>
 
     <div class="form-group">
@@ -41,10 +65,11 @@
         <input id='username' class ='form-control text-center' name='name' type="text" value = "<?php echo $currentUser->name ?>" required/>
     </div>
 
-    <img src= 'images\<?php echo isset($_SESSION["user"]->photo) ? $_SESSION["user"]->photo : "default.jpg"; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle"></li>
+    <img src= '<?php echo $photoPath . $currentUser->photo; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle" >
     <div class="row file form-group">
         <label for="photo">File input</label>
         <input id="photo" name="photo" class='btn btn-default' type="file" accept="image/*" >
+        <input type="hidden" name="MAX_FILE_SIZE" value="1048576" /> 
         <p class="help-block">Selecciona una foto .JPG o .PNG.</p>
     </div>
 

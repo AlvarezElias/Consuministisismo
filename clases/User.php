@@ -57,21 +57,21 @@ class User
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 
-		if($this->name != $userUpdate->name || $this->email != $userUpdate->email)
-		{
+		//if($this->name != $userUpdate->name || $this->email != $userUpdate->email)
+		//{
 			$querystring = 'UPDATE users 
-							SET users.name = ? , users.email  = ? 
-							WHERE id = ?';
-			
-			//Array para bindear query con variables
-			$bindeoUser = array('name' => $userUpdate->name,
-								'email' => $userUpdate->email,
-								'id' => $this->id );
+							SET name = :name , email  = :email 
+							WHERE id = :id';
 
 			$consultaUser = $objectAccessData->RetornarConsulta($querystring);
 
-			$consultaUser->execute($bindeoUser);
-		}
+			//Bindamos
+			$consultaUser->bindValue(':name', $userUpdate->name, PDO::PARAM_STR);
+			$consultaUser->bindvalue(':email',$userUpdate->email,PDO::PARAM_STR);
+			$consultaUser->bindValue(':id', $this->id, PDO::PARAM_INT );
+
+			$consultaUser->execute();
+		//}
 			
 
 		/*
