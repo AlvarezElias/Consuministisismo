@@ -25,7 +25,7 @@
 					if ( isset($_SESSION['user']) ){
 						echo '<li><a href="./UserConfig.php">Configurate</a></li>';
 						echo '<li><a href="formularios/logout.php">Desloguearse</a></li>';
-						echo '<li><img src="'. $_SESSION['user']->photo .'" alt="Responsive image" class="img-responsive img-circle"></li>';
+						echo '<li><img width="48" height="48" src="images\\' . isset($_SESSION["user"]->photo) ? $_SESSION["user"]->photo : "default.jpg" . '" alt="Responsive image" class="img-responsive img-circle"></li>';
 					}
 					else{
 						echo '<li><a href="index.php">Logueate</a></li>';

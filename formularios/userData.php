@@ -7,23 +7,20 @@
 
     if(isset($_POST['guardar']))
     {
-        $sexo = isset($currentUser->sexo) ? $currentUser->sexo : "indefinido";
-        $currentUser->intro = $_POST['intro'];
-        $currentUser->photo = $_POST['photo'];
-        $currentUser->sexo = $sexo;
+        $update = $currentUser;
+        $update->name = $_POST['name'];
+        $update->email = $_POST['email'];
+
+        $update->intro = $_POST['intro'];
+        $update->photo = isset($_POST['photo']) ? $_POST['photo'] : 'default.jpg';
+        $update->gender = isset($_POST['gender']) ? $_POST['gender'] : "I DONT KNOW!";
        // $currentUser->datebirth = $_POST['datebirth'];
 
-        $update = $currentUser->modificarUsuario($currentUser);
-
-        if($update != $currentUser)
-        {
-            $currentUser = $update;
-            $_SESSION['user'] = $currentUser;
-        }
-
+        $update = $currentUser->modificarUsuario($update);
+        
+        $currentUser = $update;
+        $_SESSION['user'] = $currentUser;
     }
-
-    var_dump($update);
 ?>
 
 <form method="post" action="UserConfig.php" class="form">
@@ -31,7 +28,7 @@
 
     <div class="form-group">
         <label for="intro">Intro</label>
-        <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="Correo Electronico" required>
+        <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="introducite" required>
     </div>
 
     <div class="form-group">
@@ -44,22 +41,24 @@
         <input id='username' class ='form-control text-center' name='name' type="text" value = "<?php echo $currentUser->name ?>" required/>
     </div>
 
+    <img src= 'images\<?php echo isset($_SESSION["user"]->photo) ? $_SESSION["user"]->photo : "default.jpg"; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle"></li>
     <div class="row file form-group">
         <label for="photo">File input</label>
-        <input id="photo" name="photo" class='btn btn-default' type="file" >
+        <input id="photo" name="photo" class='btn btn-default' type="file" accept="image/*" >
         <p class="help-block">Selecciona una foto .JPG o .PNG.</p>
     </div>
 
-    <div class="radio">
-        <label>
-            <input type="radio" name="sexo" id="masculino" value="masculino" <?php if($sexo == 'masculino') echo 'checked'; ?> >
-            masculino
+    <div  class="form-group btn-group text-center" data-toggle="buttons">
+        <label class="btn btn-gender btn-default active">
+            <input type="radio" id="female" name="gender" value="female"> Girls
         </label>
-    </div>
-    <div class="radio">
-        <label>
-            <input type="radio" name="sexo" id="femenino" value="femenino" <?php if($sexo == 'femenino') echo 'checked'; ?> >
-            Femenino
+        
+        <label class="btn btn-gender btn-default">
+            <input type="radio" id="male" name="gender" value="male"> Guys
+        </label>
+
+        <label class="btn btn-gender btn-default">
+            <input type="radio" id="indefinido" name="gender" value="I DONT KNOW!"> I DONT KNOW!
         </label>
     </div>
 
