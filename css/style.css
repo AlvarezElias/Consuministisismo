@@ -47,7 +47,7 @@ body {
 
 .login 
 {     
-	background-color: #8C9CFF; 
+	background-color: #7b5555; 
 	padding: 5px;
 }
 
@@ -108,4 +108,9 @@ body {
 .center
 {
 	margin: 0 auto;
+}
+
+.radio-input {
+   display: inline-block;
+    vertical-align: top;
 }
