@@ -47,47 +47,56 @@
     }
 ?>
 
-<form method="post" action="UserConfig.php" class="form" enctype="multipart/form-data">
+<form method="post" action="UserConfig.php" class="form-horizontal " enctype="multipart/form-data">
     <label>UserCode: <?php echo $currentUser->id ?></label>
 
     <div class="form-group">
-        <label for="intro">Intro</label>
-        <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="introducite" required>
+        <label for="intro" class="col-sm-2 control-label">Intro</label>
+        <div class="col-sm-10">
+            <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="introducite" required>
+        </div>
     </div>
 
+    <div class="form-group" >
+        <label for="email" class="col-sm-2 control-label">Correo Electronico</label>
+        <div class="col-sm-10">
+            <input id="email" class="form-control text-center"  name='email' type="email" value = "<?php echo $currentUser->email ?>" placeholder="Correo Electronico" required>
+        </div>
+    </div>
+    
     <div class="form-group">
-        <label for="email">Correo Electronico</label>
-        <input id="email" class="form-control text-center"  name='email' type="email" value = "<?php echo $currentUser->email ?>" placeholder="Correo Electronico" required>
+        <label for="username" class="col-sm-2 control-label">Nombre de usuario</label>
+        <div class="col-sm-10">
+            <input id='username' class ='form-control text-center' name='name' type="text" value = "<?php echo $currentUser->name ?>" required/>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="username">Nombre de usuario</label>
-        <input id='username' class ='form-control text-center' name='name' type="text" value = "<?php echo $currentUser->name ?>" required/>
-    </div>
-
-    <img src= '<?php echo $photoPath . $currentUser->photo; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle" >
+    <img src= '<?php echo $photoPath . $currentUser->photo; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle row" >
     <div class="row file form-group">
-        <label for="photo">File input</label>
-        <input id="photo" name="photo" class='btn btn-default' type="file" accept="image/*" >
-        <input type="hidden" name="MAX_FILE_SIZE" value="1048576" /> 
-        <p class="help-block">Selecciona una foto .JPG o .PNG.</p>
+        <label for="photo" class="col-sm-4 control-label">Subi tu Foto!</label>
+        <div class="col-sm-8">
+            <input id="photo" name="photo" class='btn btn-default' type="file" accept="image/*" >
+            <input type="hidden" name="MAX_FILE_SIZE" value="1048576" /> 
+            <p class="help-block">Selecciona una foto .JPG o .PNG. 10M Max</p>
+        </div>
     </div>
 
-    <div  class="form-group btn-group text-center" data-toggle="buttons">
-        <label class="btn btn-gender btn-default active">
+    <div  class="row form-group btn-group" data-toggle="buttons">
+        <label>Gender</label>
+        <label class="radio-input btn btn-gender btn-default active">
             <input type="radio" id="female" name="gender" value="female"> Girls
         </label>
         
-        <label class="btn btn-gender btn-default">
+        <label class="radio-input btn btn-gender btn-default">
             <input type="radio" id="male" name="gender" value="male"> Guys
         </label>
 
-        <label class="btn btn-gender btn-default">
+        <label class="radio-input btn btn-gender btn-default">
             <input type="radio" id="indefinido" name="gender" value="I DONT KNOW!"> I DONT KNOW!
         </label>
     </div>
 
-    <button class='submit btn btn-default ' name='guardar' type="submit" >Guardar</button>
+    <button class='submit btn btn-default row ' name='guardar' type="submit" >Guardar</button>
 </form>
 <br>
 <a class=' btn btn-default ' href="home.php" type="button" >Volver</a>

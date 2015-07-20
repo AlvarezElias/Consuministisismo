@@ -80,7 +80,7 @@ body {
 
 .userdata
 {
-	width: 30%;
+	width: 50%;
 	height: auto;
 }
 
@@ -99,7 +99,13 @@ body {
 
 .imgPerfil
 {
+	margin: 0 auto;
 	width: 350px;
 	height: 350px;
 }
 
+
+.center
+{
+	margin: 0 auto;
+}

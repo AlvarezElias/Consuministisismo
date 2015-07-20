@@ -22,14 +22,16 @@
 		<?php include_once ('modules/navbar.php'); ?>
 	</div>
 
+	<div class='jumbotron text-center container'>
+		<h3>Configuracion de usuario</h3>
+		<p >Aca podes modificar tus datos! </p>
+		<p class="text-muted">no te olvides de guardar</p>
+	</div>
+
 	<div class='container text-center userdata'>
 		
 
-		<div class='jumbotron'>
-			<h3>Configuracion de usuario</h3>
-			<p >Aca podes modificar tus datos! </p>
-			<p class="text-muted">no te olvides de guardar</p>
-		</div>
+		
 
 
         <?php include_once ('formularios/userData.php'); ?>
