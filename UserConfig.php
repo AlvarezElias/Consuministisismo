@@ -29,13 +29,9 @@
 	</div>
 
 	<div class='container text-center userdata'>
-		
-
-		
-
-
         <?php include_once ('formularios/userData.php'); ?>
-
+    </div>
+    
 	<?php include ('modules/footer.html'); ?>
 
 	<?php include ('modules/script.html'); ?>

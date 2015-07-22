@@ -96,7 +96,7 @@
         </label>
     </div>
 
-    <button class='submit btn btn-default row ' name='guardar' type="submit" >Guardar</button>
+    <button class='submit btn btn-primary row ' name='guardar' type="submit" >Guardar</button>
 </form>
 <br>
 <a class=' btn btn-default ' href="home.php" type="button" >Volver</a>

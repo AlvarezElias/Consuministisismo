@@ -127,6 +127,8 @@ class User
 
 
 	/***Metodos estaticos***/
+
+
 	public static function DameUsuarioActual($id)
 	{
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
@@ -164,7 +166,7 @@ class User
 		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
 		$consulta = $objectAccessData->RetornarConsulta('CALL getallusers;');
 		$consulta->execute();
-		return $consulta->fetchAll(PDO::FETCH_CLASS, "user");
+		return $consulta->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public static function NombreUsuarioExistente($username)

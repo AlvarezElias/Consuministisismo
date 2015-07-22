@@ -14,31 +14,35 @@
 		<!--nav-collapse -->
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="home.php">Home</a></li>
-				<li><a href="#about">About</a></li>
-				<li><a href="#contact">Contact</a></li>
+				<li class="active btnNavBar"><a href="home.php">Home</a></li>
+				<li class="btnNavBar"><a href="#about">About</a></li>
 			</ul>
 		
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="">Perfil</a></li>
+				
 				<?php
-					if ( isset($_SESSION['user']) ){
-						echo '<li><a href="./UserConfig.php">Configurate</a></li>';
-						echo '<li><a href="formularios/logout.php">Desloguearse</a></li>';
+					if ( isset($_SESSION['user']) )
+					{
+						echo '<li class="btnNavBar"><a href="./UserConfig.php"> '. $_SESSION["user"]->name .'</a></li> ';
+						echo '<li class="btnNavBar"><a href="./listar.php">Listar Usuarios</a></li>';
+						echo '<li class="btnNavBar"><a href="formularios/logout.php">Desloguearse</a></li>';
+						
 						$photo = 'images\\' ;
+
 						if(isset($_SESSION["user"]->photo))
 							$photo =  $photo . $_SESSION["user"]->name . '\\' . $_SESSION["user"]->photo;
 					 	else  
 					 		$photo = $photo . "default.jpg" ;
 
-						echo '<li><img width="48" height="48" src="' .  $photo . '" alt="Responsive image" class="img-responsive img-circle"></li>';
+						echo '<li class="btnNavBar"><img width="48" height="48" src="' .  $photo . '" alt="Responsive image" class="img-responsive img-circle"></li>';
 					}
-					else{
-						echo '<li><a href="index.php">Logueate</a></li>';
+					else
+					{
+						echo '<li class="btnNavBar"><a href="index.php">Logueate</a></li>';
+						echo '<li class="btnNavBar"><a href="index.php">Registrate</a></li>';
 					}
 				?>
 							
-				<li class="active"><a href="">Registrate</a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>
