@@ -10,10 +10,7 @@
 		exit;
 	}
 
-	$user = $_SESSION['user'];
-
-	$items = Rss::cargarRss();
-	$i = 0;
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,30 +30,19 @@
 				<h1>Casita dulce casita</h1>
 			</div>
 
+			<div>
+				<h3>Agregar rss</h3>
+				<label for="ingresoNuevo"></label>
+				<input id="ingresoNuevo" type="text" class="form-control">
+				<button id="agregar" class="btn btn-default" ></butt>
+			</div>
+			
 			<section id='stream' class='row container center-block'> 
 			
 			<!--Meter codigo para generar el Mainstream
 				Generar lista de rss como main menu
 				MUDAR-->	
-<?php
-			for ($i=0; $i <10 ; $i++) 
-			{ 
-				strip_tags($items[$i]->description, '<br><br/>');
-				strip_tags($items[$i]->pubDate, '<a></a>');
-				echo 
-				"<article class=' notice text-center'>
-					<h4 class='Item-title'>
-					   	<a href='". $items[$i]->link."' target='_blank'>". $items[$i]->title ." </a>
-					</h4>
-				
-					<div class='Item-date'>". (string) $items[$i]->pubDate ."</div>
-				
-					<div class='Item-content'>". substr($items[$i]->description,0,180) . 
-					  	"<a href='". $items[$i]->link ."'>Dame mas</a>
-					</div>
-				</article>";
-			}
-?>
+			
 	  		
 
 			</section>

@@ -1,9 +1,22 @@
 $(document).ready( function (){
-	//console.log("ready!");
-
+	//Boton de navbar seleccionado
+	var selectBtn = document.cookie;
+	
+	//<<<<<<<<<ver si esta seteado o no... pero como se sabe que la cockie es actual, esta cockie tiene que durar 1 minuto.
+	if(selectBtn.contain("btnSeleccionado"))
+	{
+		$('.btnNavBar').removeClass('active'); 
+		$(selectBtn).addClass('active');
+	}
+	else
+	{
+		
+	}
 	//Agregando manejadores
 	$('.btnNavBar').click(function(e) {
-		 $('.btnNavBar').removeClass('active'); $(this).addClass('active');
+		 $('.btnNavBar').removeClass('active'); 
+		 $(this).addClass('active');
+		 document.cookie="btnSeleccionado = " + $(this).attr("id");
 	});
 
 	$('.btnNavBar').hover(function() {

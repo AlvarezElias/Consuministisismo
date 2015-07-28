@@ -27,10 +27,12 @@ body {
 {
 	width: 80%;
 	margin: 0 auto;
-	font-style: italic;
 	display: block;
 	font-size: 21px;
+	font-style: italic;
 	font-weight: 200;
+	color: #fff;
+	
 }
 
 .main
@@ -40,20 +42,20 @@ body {
 
 .ingreso
 {
-	width: 50%;
+	width: 80%;
 	margin: 0 auto;
 
 }
 
 .login 
 {     
-	background-color: #7b5555; 
+	background-color: #FFF; 
 	padding: 5px;
 }
 
 .register
 {
-	background-color: #8C9CEE;
+	background-color: #FFF;
 	padding: 5px;
 
 }
@@ -86,7 +88,6 @@ body {
 
 .file
 {
-	.center-block();
 	display: inline-block;
 
 }
@@ -113,4 +114,14 @@ body {
 .radio-input {
    display: inline-block;
     vertical-align: top;
+}
+
+.pinched {
+    background: #333 none repeat scroll 0 0;
+    border-radius: 10px;
+    color: #fff;
+    margin: 80px 0 3em;
+    padding: 90px;
+    position: relative;
+    text-align: center;
 }

@@ -1,11 +1,11 @@
 <?php
+	include('clases\User.php');
 	session_start();
-
 
 	//si no esta seteado el usuario, validamos el ingreso o el registro
 	if(!isset($_SESSION['user']))
 	{
-		include('clases\User.php');
+		
 
 		$username = $_POST['username'];
 		$password = $_POST['password'];

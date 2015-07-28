@@ -20,8 +20,8 @@
 	
 		<?php include ('modules/navbar.php'); ?>
 
-		<main id="content" class="container-fluid">
-			<div id="intro" class="jumbotron page">
+		<main id="content " class=" container-fluid">
+			<div id="intro" class="pinched ">
 				<h2>Bienvenido a tu lector de noticias favorito (o no)</h2>
 				<p>Si sos usuario da click <a href="#logueo">Aca</a> sino da click <a href="#registro">Aca</a></p>
 			</div>

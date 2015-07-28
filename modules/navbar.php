@@ -14,8 +14,8 @@
 		<!--nav-collapse -->
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active btnNavBar"><a href="home.php">Home</a></li>
-				<li class="btnNavBar"><a href="#about">About</a></li>
+				<li id='home' class="active btnNavBar"><a href="home.php">Home</a></li>
+				<li id='About' class="btnNavBar"><a href="#about">About</a></li>
 			</ul>
 		
 			<ul class="nav navbar-nav navbar-right">
@@ -46,4 +46,5 @@
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>
+ <label id='seleccion' type="hidden" name="seleccion" value=""></label>
 </nav>
