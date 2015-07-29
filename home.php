@@ -25,25 +25,22 @@
 			<?php include ('modules/navbar.php'); ?>
 		</div>
 
-		<main id='main' class='main row text-center'>
-			<div id='presentacion' class="wrapper">
-				<h1>Casita dulce casita</h1>
+		<main id='main' class='main container-fluid center-block row text-center'>
+			<div id='presentacion ' class="wrapper ">
+					<h1>Casita dulce casita</h1>
 			</div>
-
-			<div>
-				<h3>Agregar rss</h3>
-				<label for="ingresoNuevo"></label>
-				<input id="ingresoNuevo" type="text" class="form-control">
-				<button id="agregar" class="btn btn-default" ></butt>
+			
+			<div class="container-fluid  form-group  center-block">				
+				<label for="ingresoNuevo">Agrega una fuente rss nueva</label>
+				<input id="ingresoNuevo" type="text" class="form-control" >
+				<button id="agregar" type='submit'class="btn btn-default" >
+					Agregar
+				</button>
 			</div>
 			
 			<section id='stream' class='row container center-block'> 
 			
-			<!--Meter codigo para generar el Mainstream
-				Generar lista de rss como main menu
-				MUDAR-->	
-			
-	  		
+	  		<?php include ('modules/generarRss.php'); ?>
 
 			</section>
 		</main>

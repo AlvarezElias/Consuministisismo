@@ -1,9 +1,10 @@
 $(document).ready( function (){
 	//Boton de navbar seleccionado
-	var selectBtn = document.cookie;
+	var selectBtn = $(".active");
+	document.cookie = selectBtn;
 	
 	//<<<<<<<<<ver si esta seteado o no... pero como se sabe que la cockie es actual, esta cockie tiene que durar 1 minuto.
-	if(selectBtn.contain("btnSeleccionado"))
+	if(selectBtn)
 	{
 		$('.btnNavBar').removeClass('active'); 
 		$(selectBtn).addClass('active');

@@ -44,14 +44,14 @@
 		<?php
 
 			foreach ($usuarios as $UnUsuario) {
-				$registro = '<tr id ="' . $UnUsuario["id"] . '">';
+				$registro = '<tr id ="' . $UnUsuario["id"] . '" class="usuarios">';
 				$registro = $registro .  ' <td>'. $UnUsuario["id"] .'</td>';
 				$registro = $registro .  ' <td>'. $UnUsuario["name"] .'</td>';
 				$registro = $registro .  ' <td>'. $UnUsuario["email"] .'</td>';
 				$registro = $registro .  ' <td>'. '123123' .'</td>'; //$UnUsuario["datebirth"]
 				$registro = $registro .  ' <td>'. $UnUsuario["gender"] .'</td>'; //$UnUsuario["gender"]
 
-				$registro = $registro .  ' <td> <input class="btn btn-default " type ="button">SI DALE QUIERO!</button></td>';
+				$registro = $registro .  ' <td> <button class="btn btn-default " >SI DALE QUIERO!</button></td>';
 
 				echo $registro . ' <br> '. ' </tr>';
 			}
@@ -62,5 +62,6 @@
 	<?php include ('modules/footer.html'); ?>
 
 	<?php include ('modules/script.html'); ?>
+	<script type="text/javascript" src="js/CRUD.js"></script>
 </body>
 </html>
