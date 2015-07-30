@@ -50,29 +50,29 @@
 <form method="post" action="UserConfig.php" class="form-horizontal " enctype="multipart/form-data">
     <label>UserCode: <?php echo $currentUser->id ?></label>
 
-    <div class="form-group">
+    <div class="form-group row">
         <label for="intro" class="col-sm-2 control-label">Intro</label>
         <div class="col-sm-10">
-            <input id="intro" class="form-control text-center"  name='intro' type="text" value = "<?php echo isset($currentUser->intro) ? $currentUser->intro : 'introduci tu introduccion'; ?>" placeholder="introducite" required>
+            <input id="intro" class="form-control text-center"  name='intro' type="text" value = <?php echo isset($currentUser->intro) ? "'". $currentUser->intro . "'" : '"introduci tu introduccion"'; ?> required>
         </div>
     </div>
 
-    <div class="form-group" >
-        <label for="email" class="col-sm-2 control-label">Correo Electronico</label>
-        <div class="col-sm-10">
+    <div class="form-group row" >
+        <label for="email row" class="col-sm-2 control-label">Correo Electronico</label>
+        <div class="col-sm-8">
             <input id="email" class="form-control text-center"  name='email' type="email" value = "<?php echo $currentUser->email ?>" placeholder="Correo Electronico" required>
         </div>
     </div>
     
-    <div class="form-group">
+    <div class="form-group row">
         <label for="username" class="col-sm-2 control-label">Nombre de usuario</label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
             <input id='username' class ='form-control text-center' name='name' type="text" value = "<?php echo $currentUser->name ?>" required/>
         </div>
     </div>
 
     <img src= '<?php echo $photoPath . $currentUser->photo; ?>' alt="Responsive image" class="imgPerfil img-responsive img-circle row" >
-    <div class="row file form-group">
+    <div class="row file form-group row">
         <label for="photo" class="col-sm-4 control-label">Subi tu Foto!</label>
         <div class="col-sm-8">
             <input id="photo" name="photo" class='btn btn-default' type="file" accept="image/*" >
@@ -80,9 +80,9 @@
             <p class="help-block">Selecciona una foto .JPG o .PNG. 10M Max</p>
         </div>
     </div>
-
-    <div  class="row form-group btn-group" data-toggle="buttons">
-        <label>Gender</label>
+    
+    <div  id="radios" class="row form-group btn-group" data-toggle="buttons">
+        <label for="radios" class='text-center'>Gender</label>
         <label class="radio-input btn btn-gender btn-default active">
             <input type="radio" id="female" name="gender" value="female"> Girls
         </label>
@@ -96,7 +96,9 @@
         </label>
     </div>
 
+    <div class="form-group row">
     <button class='submit btn btn-primary row ' name='guardar' type="submit" >Guardar</button>
+    </div>
 </form>
 <br>
 <a class=' btn btn-default ' href="home.php" type="button" >Volver</a>

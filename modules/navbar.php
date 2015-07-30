@@ -1,5 +1,5 @@
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top nav" >
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -14,18 +14,17 @@
 		<!--nav-collapse -->
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li id='home' class="active btnNavBar"><a href="home.php">Home</a></li>
-				<li id='About' class="btnNavBar"><a href="#about">About</a></li>
+				<li id='home' class="active btnNavBar"><a class="lnkNavBar" href="home.php">Home</a></li>
 			</ul>
 		
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" >
 				
 				<?php
 					if ( isset($_SESSION['user']) )
 					{
-						echo '<li class="btnNavBar"><a href="./UserConfig.php"> '. $_SESSION["user"]->name .'</a></li> ';
-						echo '<li class="btnNavBar"><a href="./listar.php">Listar Usuarios</a></li>';
-						echo '<li class="btnNavBar"><a href="formularios/logout.php">Desloguearse</a></li>';
+						echo '<li class="btnNavBar"><a class="lnkNavBar" href="./UserConfig.php"> '. $_SESSION["user"]->name .'</a></li> ';
+						echo '<li class="btnNavBar"><a class="lnkNavBar"  href="./listar.php">Listar Usuarios</a></li>';
+						echo '<li class="btnNavBar"><a class="lnkNavBar" href="formularios/logout.php">Desloguearse</a></li>';
 						
 						$photo = 'images\\' ;
 
@@ -34,12 +33,12 @@
 					 	else  
 					 		$photo = $photo . "default.jpg" ;
 
-						echo '<li class="btnNavBar"><img width="48" height="48" src="' .  $photo . '" alt="Responsive image" class="img-responsive img-circle"></li>';
+						echo '<li class="btnNavBar" ><img style="width: 50px; height: 50px;" src="' .  $photo . '" alt="Responsive image" class="img-responsive img-circle"><a class="lnkNavBar" href="./UserConfig.php"></a></li>';
 					}
 					else
 					{
-						echo '<li class="btnNavBar"><a href="index.php">Logueate</a></li>';
-						echo '<li class="btnNavBar"><a href="index.php">Registrate</a></li>';
+						echo '<li class="btnNavBar"><a class="lnkNavBar" href="index.php">Logueate</a></li>';
+						echo '<li class="btnNavBar"><a class="lnkNavBar" href="index.php">Registrate</a></li>';
 					}
 				?>
 							

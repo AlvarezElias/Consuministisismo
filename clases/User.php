@@ -202,4 +202,30 @@ class User
 
 	}
 
+	public static function borrameInfoUsuario($id)
+	{
+		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
+		$consulta = $objectAccessData->RetornarConsulta(
+			"DELETE
+			FROM infouser
+			WHERE userid=:id;");
+		$consulta->bindValue(':id',$id,PDO::PARAM_INT);
+		$consulta->execute();
+		return $consulta->rowCount();
+	}
+
+	public static function borrameUsuario($id)
+	{
+		USER::borrameInfoUsuario($id);
+
+		$objectAccessData = AccesoDatos::dameUnObjetoAcceso();
+		$consulta = $objectAccessData->RetornarConsulta(
+			"DELETE
+			FROM users
+			WHERE id=:id;");
+		$consulta->bindValue(':id',$id,PDO::PARAM_INT);
+		$consulta->execute();
+		return $consulta->rowCount();
+	}
+
 }

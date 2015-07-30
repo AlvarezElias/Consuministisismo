@@ -1,4 +1,6 @@
 <?php
+include('../clases/Rss.php');
+session_start();
 $user = $_SESSION['user'];
 
 if(isset($_POST['rssNuevo'])){
@@ -13,6 +15,7 @@ $i = 0;
 		strip_tags($items[$i]->description);
 		strip_tags($items[$i]->pubDate);
 		strip_tags($items[$i]->title);
+		
     echo"<article class='notice text-center'>
 	        <h4 class='Item-title'>
 		       	<a href='". $items[$i]->link."' target='_blank'>". $items[$i]->title ." </a>
@@ -22,7 +25,7 @@ $i = 0;
 			<div class='Item-content'>". substr($items[$i]->description,0,180) . 
 			    "<a href='". $items[$i]->link ."'>Dame mas</a>
 			</div>
-			<button id='eliminar' clas='btn btn-default'>Eliminar</button>
+			<button id='eliminar' class='btn btn-default'>Eliminar</button>
 		</article>";
 	}
 			

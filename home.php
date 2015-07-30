@@ -9,7 +9,7 @@
 		header ("location: index.php");
 		exit;
 	}
-
+	$usuarios = USER::TraerTodosLosUsersSP();
 	
 ?>
 <!DOCTYPE html>
@@ -26,6 +26,7 @@
 		</div>
 
 		<main id='main' class='main container-fluid center-block row text-center'>
+
 			<div id='presentacion ' class="wrapper ">
 					<h1>Casita dulce casita</h1>
 			</div>
@@ -38,9 +39,17 @@
 				</button>
 			</div>
 			
+			<!-- when clicked, it will load the create product form -->
+		    <div id='load-product' class='btn btn-primary pull-right'>
+		        <span class='glyphicon glyphicon-load'></span> Cargar productos
+		    </div>
+
 			<section id='stream' class='row container center-block'> 
 			
-	  		<?php include ('modules/generarRss.php'); ?>
+			<!-- this is where the contents will be shown. -->
+			<div id='page-content'>
+			</div>
+	  		<?php //include ('modules/generarRss.php'); ?>
 
 			</section>
 		</main>
@@ -50,5 +59,8 @@
 	</div>
 	<?php include ('modules/footer.html'); ?>
 	<?php include ('modules/script.html'); ?>
+	<script src="https://code.highcharts.com/stock/highstock.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript" src="js/CRUD.js"></script>
 </body>
 </html>

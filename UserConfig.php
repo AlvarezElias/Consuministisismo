@@ -22,7 +22,7 @@
 		<?php include_once ('modules/navbar.php'); ?>
 	</div>
 
-	<div class='jumbotron text-center container'>
+	<div class='jumbotron text-center container block-center' >
 		<h3>Configuracion de usuario</h3>
 		<p >Aca podes modificar tus datos! </p>
 		<p class="text-muted">no te olvides de guardar</p>
